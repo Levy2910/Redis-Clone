@@ -1,3 +1,5 @@
+package day1HashMap;
+
 import java.util.HashMap;
 
 public class MapStore {
