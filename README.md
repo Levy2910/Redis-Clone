@@ -14,6 +14,7 @@ The goal is to understand how Redis works under the hood by incrementally buildi
 | Day | Topic |
 |-----|-------|
 | Day 1 | Java Collections: Intro to `HashMap`, basic methods |
+| Day 2 | Java Input/OutputStream: Use InputStream, OutPut stream to read, write files (will apply the same concept for Redis) |
 
 ## How to Run
 
