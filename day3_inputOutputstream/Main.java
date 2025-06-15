@@ -1,5 +1,4 @@
-import InputOutputLearning.ConsoleEcho;
-import day1HashMap.MapStore;
+import day3_inputOutputstream.ConsoleEcho;
 
 public static void main(String[] args) throws FileNotFoundException {
 //    MapStore mapStore = new MapStore();
@@ -15,5 +14,5 @@ public static void main(String[] args) throws FileNotFoundException {
 //    System.out.println("Country after deletion: " + mapStore.get("country"));
 
     ConsoleEcho consoleEcho = new ConsoleEcho();
-    consoleEcho.getContentFromFile("InputOutputLearning/dummy.txt", "InputOutputLearning/result.txt");
+    consoleEcho.getContentFromFile("day3_inputOutputstream/dummy.txt", "day3_inputOutputstream/result.txt");
 }

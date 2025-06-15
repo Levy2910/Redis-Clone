@@ -1,4 +1,4 @@
-package InputOutputLearning;
+package day3_inputOutputstream;
 
 import java.io.*;
 

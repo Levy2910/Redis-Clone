@@ -1,4 +1,4 @@
-package MultipleClientsHandling;
+package day5_threadRunaable;
 
 import java.io.*;
 import java.net.Socket;
