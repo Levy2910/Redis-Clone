@@ -1,12 +1,13 @@
 package day6_SimpleRedisClone;
 
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class StoreRedis {
-    private HashMap<String, String> store;
+    private ConcurrentHashMap<String, String> store;
 
     public StoreRedis(){
-        this.store = new HashMap<>();
+        this.store = new ConcurrentHashMap<>();
     }
 
     public void set(String key, String value){
