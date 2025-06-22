@@ -8,10 +8,12 @@ import java.util.HashMap;
 public class HandleRequest implements Runnable{
     private Socket clientSocket;
     private StoreRedis storeRedis;
+    private AOFHandler aofHandler;
 
-    public HandleRequest(Socket clientSocket, StoreRedis storeRedis){
+    public HandleRequest(Socket clientSocket, StoreRedis storeRedis, AOFHandler aofHandler) throws IOException {
         this.clientSocket = clientSocket;
         this.storeRedis = storeRedis;
+        this.aofHandler = aofHandler;
     }
 
 
@@ -65,6 +67,7 @@ public class HandleRequest implements Runnable{
                         storeRedis.del(key);
                         bufferedWriter.write("already deleted key " +"\n");
                         bufferedWriter.flush();
+                        aofHandler.append(line);
                         continue;
                     case "set":
                         if (extractedLine.length != 3){
@@ -76,6 +79,7 @@ public class HandleRequest implements Runnable{
                         storeRedis.set(key, extractedLine[2]);
                         bufferedWriter.write("already added key "+ "\n");
                         bufferedWriter.flush();
+                        aofHandler.append(line);
                         continue;
                     case "incr":
                         if (extractedLine.length != 2){
@@ -88,6 +92,7 @@ public class HandleRequest implements Runnable{
                             int value = storeRedis.incr(key);
                             bufferedWriter.write("value: " + value + "\n");
                             bufferedWriter.flush();
+                            aofHandler.append(line);
                         } catch (Exception e) {
                             bufferedWriter.write("error: " + e.getMessage() + "\n");
                             bufferedWriter.flush();
@@ -104,6 +109,7 @@ public class HandleRequest implements Runnable{
                             int value = storeRedis.decr(key);
                             bufferedWriter.write("value: " + value + "\n");
                             bufferedWriter.flush();
+                            aofHandler.append(line);
                         } catch (Exception e) {
                             bufferedWriter.write("error: " + e.getMessage() + "\n");
                             bufferedWriter.flush();
@@ -136,6 +142,7 @@ public class HandleRequest implements Runnable{
                         String result = storeRedis.mSet(map);
                         bufferedWriter.write(result + "\n");
                         bufferedWriter.flush();
+                        aofHandler.append(line);
                         continue;
                     case "mget":
                         if (extractedLine.length < 2){
@@ -157,6 +164,7 @@ public class HandleRequest implements Runnable{
                         storeRedis.deleteAll();
                         bufferedWriter.write("already deleted all " + "\n");
                         bufferedWriter.flush();
+                        aofHandler.append(line);
                         continue;
                     case "expire":
                         if (extractedLine.length != 3){
@@ -169,6 +177,7 @@ public class HandleRequest implements Runnable{
                         storeRedis.setExpiryDate(key, time);
                         bufferedWriter.write("already set the time up " + "\n");
                         bufferedWriter.flush();
+                        aofHandler.append(line);
                         continue;
                     case "ttl":
                         if (extractedLine.length != 2){
