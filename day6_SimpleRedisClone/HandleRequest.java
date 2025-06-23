@@ -177,7 +177,6 @@ public class HandleRequest implements Runnable{
                         storeRedis.setExpiryDate(key, time);
                         bufferedWriter.write("already set the time up " + "\n");
                         bufferedWriter.flush();
-                        aofHandler.append(line);
                         continue;
                     case "ttl":
                         if (extractedLine.length != 2){

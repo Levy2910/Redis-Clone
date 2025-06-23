@@ -2,15 +2,17 @@ package day6_SimpleRedisClone;
 
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class StoreRedis {
     private ConcurrentHashMap<String, String> store;
-    private HashMap<String, Long> expiryMap;
+    private ConcurrentHashMap<String, Long> expiryMap;
 
     public StoreRedis(){
         this.store = new ConcurrentHashMap<>();
-        this.expiryMap = new HashMap<>();
+        this.expiryMap = new ConcurrentHashMap<>();
     }
 
     public void set(String key, String value){
@@ -42,6 +44,12 @@ public class StoreRedis {
             return;
         }
         store.remove(key);
+    }
+    public void delFromExpiryMap(String key){
+        if (!expiryMap.containsKey(key)){
+            return;
+        }
+        expiryMap.remove(key);
     }
     public boolean exist(String key){
         if (store.containsKey(key)){
@@ -126,6 +134,27 @@ public class StoreRedis {
         long currentTimeSeconds = Instant.now().getEpochSecond();
         return expiryMap.get(key) - currentTimeSeconds;
     }
+    public boolean isExpiredKey(String key, long currentTime){
+        long expiryTime = expiryMap.get(key);
+        return expiryTime <= currentTime;
+    }
+    public Set<Map.Entry<String, Long>> getAllValuesFromExpiredMap(){
+        return expiryMap.entrySet();
+    }
+    public void cleanExpiredKey() {
+        long currentTime = Instant.now().getEpochSecond();
+
+        for (Map.Entry<String, Long> entry : expiryMap.entrySet()) {
+            String key = entry.getKey();
+            long expiryTime = entry.getValue();
+
+            if (expiryTime <= currentTime) {
+                expiryMap.remove(key);
+                store.remove(key);
+            }
+        }
+    }
+
 }
 
 

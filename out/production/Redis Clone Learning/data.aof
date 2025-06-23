@@ -1,3 +1,5 @@
 set name vy
+expire name 20
 del name
-set name vy
+
+set age 25

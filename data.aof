@@ -1,3 +1,9 @@
 set name vy
+expire name 20
 del name
-set name vy
+
+set age 25
+del name
+expire age 10
+del age
+set work sap
