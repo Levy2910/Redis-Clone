@@ -1,6 +1,7 @@
-package day6_SimpleRedisClone;
+package RedisClone;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -154,7 +155,16 @@ public class StoreRedis {
             }
         }
     }
+    public boolean isKeyInExpiredMap(String key){
+        if (expiryMap.containsKey(key)){
+            return true;
+        }
+        return false;
+    }
 
+    public Set<Map.Entry<String, String>> getAllValuesFromCurrentStore(){
+        return store.entrySet();
+    }
 }
 
 

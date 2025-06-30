@@ -1,9 +1,8 @@
-package day6_SimpleRedisClone;
+package RedisClone;
 
 import java.time.Instant;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ExpiryThread extends Thread {
     private final StoreRedis storeRedis;

@@ -3,3 +3,7 @@ expire name 20
 del name
 
 set age 25
+del name
+expire age 10
+del age
+set work sap

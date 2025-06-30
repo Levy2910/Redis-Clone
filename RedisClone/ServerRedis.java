@@ -1,8 +1,4 @@
-import day5_threadRunaable.LetMeHandleThisClient;
-import day6_SimpleRedisClone.AOFHandler;
-import day6_SimpleRedisClone.ExpiryThread;
-import day6_SimpleRedisClone.HandleRequest;
-import day6_SimpleRedisClone.StoreRedis;
+import RedisClone.*;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -17,8 +13,11 @@ public static void main(String[] args) throws IOException {
     replay(storeRedis);
     ExpiryThread expiryThread = new ExpiryThread(storeRedis, aofHandler);
     expiryThread.start();
+    SnapshortThread snapshotThread = new SnapshortThread(storeRedis);
+    snapshotThread.start();
 
     Runtime.getRuntime().addShutdownHook(new Thread(expiryThread::shutdown));
+    Runtime.getRuntime().addShutdownHook(new Thread(snapshotThread::shutdown));
 
     while (true) {
         try {

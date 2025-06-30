@@ -1,4 +1,4 @@
-package day6_SimpleRedisClone;
+package RedisClone;
 
 import java.io.*;
 import java.net.Socket;

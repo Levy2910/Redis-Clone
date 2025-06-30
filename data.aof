@@ -7,3 +7,7 @@ del name
 expire age 10
 del age
 set work sap
+del age
+del name
+set name levyyayay
+set love none
