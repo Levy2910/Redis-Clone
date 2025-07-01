@@ -1,48 +1,48 @@
 # Redis Clone in Java
 
-A lightweight Redis-like key-value store built from scratch using Java. This project mimics core Redis functionalities, including command processing, data persistence, and key expiration — while providing hands-on experience with Java networking, multithreading, and I/O.
+This is a lightweight Redis-like key-value store built from scratch in Java. It replicates core Redis functionalities such as command processing, data persistence, key expiration, and client-server communication over TCP. The project gave me hands-on experience with Java I/O, networking, and multithreading.
 
-## 🚀 Features
+## Features
 
-- **Basic Commands**: `SET`, `GET`, `DEL`, `EXPIRE`, and more
-- **Append-Only File (AOF)**: Persists write commands to disk for data durability
-- **Key Expiry**: Background thread removes expired keys based on TTL
-- **Periodic Snapshots**: Backup mechanism that creates data snapshots every 5 minutes
-- **TCP Socket Communication**: Accepts client connections over TCP
-- **Thread-Safe Operations**: Synchronized access and locking for shared state
-- **Startup Recovery**: Loads data from AOF to restore state on server restart
+- Basic commands: `SET`, `GET`, `DEL`, `EXPIRE`, and others
+- Append-Only File (AOF) for persisting write operations
+- Background thread for expiring keys based on TTL
+- Snapshot system that creates backups every 5 minutes
+- TCP socket server that handles multiple client connections
+- Thread-safe state management with synchronization and locking
+- Startup recovery: server loads data from AOF on launch
 
-## 🧠 What I Learned
+## What I Learned
 
-- Low-level networking using Java’s `Socket`, `ServerSocket`, and streams
-- Java I/O: Buffered reading, writing, flushing, and proper resource handling
-- Threading and concurrency: `synchronized`, locks, and managing background workers
-- Redis architecture and persistence strategies (AOF and RDB concepts)
-- Building reliable systems that persist and recover state
+- Java networking using `Socket`, `ServerSocket`, and stream handling
+- Buffered reading, writing, flushing, and managing I/O resources properly
+- Managing concurrency in Java using threads, locks, and synchronization
+- Redis internals: how AOF and RDB work, and how Redis handles key expiration
+- Building persistent and fault-tolerant systems from the ground up
 
-## 📦 Tech Stack
+## Tech Stack
 
-- **Language**: Java
-- **Concurrency**: Java Threads & Synchronization
-- **Persistence**: File I/O, AOF-style logging, and custom snapshot mechanism
-- **Networking**: Java TCP sockets
+- Java (Core language)
+- Java Threads and Synchronization
+- File I/O for AOF and snapshot persistence
+- TCP sockets for client-server communication
 
-## 🔧 How It Works
+## How It Works
 
-1. Server starts and loads data from the AOF file (if it exists).
-2. Clients connect via TCP and send Redis-like commands.
-3. The server processes commands, modifies in-memory state, and appends to AOF.
+1. The server starts and loads the data from the AOF file if present.
+2. Clients connect over TCP and send simple text-based commands.
+3. The server executes the commands, updates in-memory data, and appends the changes to the AOF.
 4. Background threads:
-   - Expire old keys based on TTL
-   - Create periodic snapshots for backup
+   - Remove expired keys
+   - Create periodic snapshot backups
 
-## 🛠️ Setup & Run
+## Running the Project
 
 ```bash
 # Clone the repository
 git clone https://github.com/your-username/redis-clone-java.git
 cd redis-clone-java
 
-# Compile and run (example if using CLI)
+# Compile and run
 javac RedisServer.java
 java RedisServer
